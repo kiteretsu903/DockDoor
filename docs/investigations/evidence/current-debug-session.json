@@ -1,0 +1,13 @@
+{
+  "date": "2026-09-07",
+  "pid": 12055,
+  "mode": "observe",
+  "inputReplayEnabled": false,
+  "forcedPreviewTimingEnabled": false,
+  "accessibilityGranted": true,
+  "screenCaptureGranted": true,
+  "logPath": "/tmp/DockDoor-PreviewRace-12055-CD84EACF-01B6-4634-9B3F-C1F42E306D4A.jsonl",
+  "signingCertificateSHA1": "CE1C653F6BFA542C339BCAF62294580BD63B85D7",
+  "bundleIdentifier": "com.ethanbills.DockDoor.debug",
+  "fixApplied": true
+}

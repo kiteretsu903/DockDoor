@@ -913,13 +913,22 @@ struct WindowPreview: View, Equatable {
             .fixedSize()
             .opacity(skeletonMode ? 0 : 1)
             .allowsHitTesting(!skeletonMode && !mockPreviewActive)
+            .onDisappear {
+                cancelFullPreviewHover()
+            }
     }
 
     private func cancelFullPreviewHover() {
+        #if DEBUG
+            DebugPreviewRaceProbe.record("hover.cancel", coordinator: SharedPreviewWindowCoordinator.activeInstance,
+                                         windowID: windowInfo.id, hoverID: fullPreviewHoverID)
+        #endif
         fullPreviewTimer?.invalidate()
         fullPreviewTimer = nil
+        if let hoverID = fullPreviewHoverID {
+            SharedPreviewWindowCoordinator.activeInstance?.cancelFullPreviewHover(hoverID)
+        }
         fullPreviewHoverID = nil
-        SharedPreviewWindowCoordinator.activeInstance?.hideFullPreviewWindow()
     }
 
     private func handleFullPreviewHover(isHovering: Bool, action: PreviewHoverAction) {
@@ -935,16 +944,26 @@ struct WindowPreview: View, Equatable {
                 }
 
             case .previewFullSize:
-                let hoverID = UUID()
+                guard let coordinator = SharedPreviewWindowCoordinator.activeInstance,
+                      let hoverID = coordinator.beginFullPreviewHover() else { return }
                 fullPreviewHoverID = hoverID
+                #if DEBUG
+                    DebugPreviewRaceProbe.record("hover.armed", coordinator: SharedPreviewWindowCoordinator.activeInstance,
+                                                 windowID: windowInfo.id, hoverID: hoverID)
+                #endif
                 let showFullPreview = {
                     guard fullPreviewHoverID == hoverID else { return }
-                    SharedPreviewWindowCoordinator.activeInstance?.showWindow(
+                    #if DEBUG
+                        DebugPreviewRaceProbe.record("hover.timerAccepted", coordinator: SharedPreviewWindowCoordinator.activeInstance,
+                                                     windowID: windowInfo.id, hoverID: hoverID)
+                    #endif
+                    coordinator.showWindow(
                         appName: windowInfo.app.localizedName ?? "Unknown",
                         windows: [windowInfo],
                         mouseScreen: bestGuessMonitor,
                         dockItemElement: nil, overrideDelay: true,
-                        centeredHoverWindowState: .fullWindowPreview
+                        centeredHoverWindowState: .fullWindowPreview,
+                        fullPreviewHoverID: hoverID
                     )
                 }
                 if appearance.tapEquivalentInterval == 0 {

@@ -178,6 +178,9 @@ class WindowManipulationObservers {
     @objc private func activeSpaceDidChange(_ notification: Notification) {
         DebugLogger.log("activeSpaceDidChange")
         Task { @MainActor in
+            #if DEBUG
+                DebugPreviewRaceProbe.record("workspace.spaceChanged", coordinator: previewCoordinator)
+            #endif
             previewCoordinator.hideWindow()
         }
         if Defaults[.showActiveAppIndicator] {

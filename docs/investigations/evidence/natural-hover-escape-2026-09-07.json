@@ -1,0 +1,74 @@
+{
+  "date": "2026-09-07",
+  "pid": 7185,
+  "mode": "observe",
+  "input": "normal macOS mouseMoved and Escape events posted by the signed debug app",
+  "forcedPreviewScheduling": false,
+  "earlyEscapeTrials": 4,
+  "earlyEscapeOrphans": 4,
+  "negativeControls": [
+    "pointer exit before 0.3 s dwell canceled timer",
+    "Escape after full preview display dismissed both panels"
+  ],
+  "recovery": "ordinary Calculator Dock preview cleared the first orphan; earlier Escape did not",
+  "cleanupVerified": true,
+  "logSHA256": "ec5fba34cbde5816230e8a1a0ea0c143631c06b81dd9cfc474ca695ac34f9216",
+  "sourceSHA256": {
+    "DockDoor/Utilities/DebugTestHarness.swift": "4748bda2f6a4627ec691e1f87599b07ab9e1311255f5dd2f6702842f7ae3408c",
+    "DockDoor/Utilities/KeybindHelper.swift": "e6c10d00416bc05f6ac09924e81763c011505b2f6f4be2bcb68f065e7959b024",
+    "DockDoor/Utilities/Window Management/WindowManipulationObservers.swift": "e94100d16448c4666e18bd922e70ca6a713a60fe3b535489864f6c7f7dde1991",
+    "DockDoor/Views/Hover Window/Shared Components/SharedPreviewWindowCoordinator.swift": "6309a39e04816be35eb07cc607ba375823e1963f378be421aef271f60d1a03cc",
+    "DockDoor/Views/Hover Window/WindowPreview.swift": "876be94d9cb78a69356dd8e2324370c1836392edacefe2b8794def5bcc02ae8e"
+  },
+  "hovers": [
+    {
+      "hoverID": "3007169A-8E67-42EE-A628-B1085E7A73A6",
+      "armedAt": 151.6715930000064,
+      "timerAcceptedAt": 151.97277800005395,
+      "parentVisibleAtTimer": false,
+      "cardDisappearedAt": 151.81878850003704,
+      "canceledAt": null
+    },
+    {
+      "hoverID": "DEBFCA0C-3815-4E89-B411-FEE12BA70BCB",
+      "armedAt": 328.94547825003974,
+      "timerAcceptedAt": 329.245957666717,
+      "parentVisibleAtTimer": false,
+      "cardDisappearedAt": 329.03897462500026,
+      "canceledAt": null
+    },
+    {
+      "hoverID": "9A3AAABF-F922-430F-AC62-EDF559C3C0C3",
+      "armedAt": 332.49117987503996,
+      "timerAcceptedAt": 332.7920476250001,
+      "parentVisibleAtTimer": false,
+      "cardDisappearedAt": 332.6922903750092,
+      "canceledAt": null
+    },
+    {
+      "hoverID": "66473A59-D931-4D09-B58B-4CB14F2018CE",
+      "armedAt": 336.0949515833636,
+      "timerAcceptedAt": 336.3963663750328,
+      "parentVisibleAtTimer": false,
+      "cardDisappearedAt": 336.35916095838184,
+      "canceledAt": null
+    },
+    {
+      "hoverID": "081B5F17-88CF-40D0-B779-0D8C7F6B943D",
+      "armedAt": 339.42815908335615,
+      "timerAcceptedAt": null,
+      "parentVisibleAtTimer": null,
+      "cardDisappearedAt": null,
+      "canceledAt": 339.5966754166875
+    },
+    {
+      "hoverID": "B93693E3-77B5-4093-B696-4B9951B9D217",
+      "armedAt": 341.3336990416865,
+      "timerAcceptedAt": 341.6348636666662,
+      "parentVisibleAtTimer": true,
+      "cardDisappearedAt": 341.90903512504883,
+      "canceledAt": null
+    }
+  ],
+  "visualEvidence": "DockDoor-owned full-size Calculator preview screenshot in task conversation; parent absent."
+}
