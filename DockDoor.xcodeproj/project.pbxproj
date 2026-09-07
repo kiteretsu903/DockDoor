@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E3701318BAB447E8B6BD1E46D4482518 /* FullPreviewLifecycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB192CF0D1CA47A99768D735DF2CE313 /* FullPreviewLifecycleTests.swift */; };
 		02D5CE06E29A4A3087322871 /* DockDoorProPromo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D6937C6B55416A8668B25B /* DockDoorProPromo.swift */; };
 		DBFD0B5445DD4F01BD0FBBAB /* DockDoorPro.swift in Sources */ = {isa = PBXBuildFile; fileRef = F875D112D98340CFAB1BC620 /* DockDoorPro.swift */; };
 		0531F8D22C3CC04600327808 /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0531F8D12C3CC04600327808 /* AppearanceSettingsView.swift */; };
@@ -242,6 +243,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CB192CF0D1CA47A99768D735DF2CE313 /* FullPreviewLifecycleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullPreviewLifecycleTests.swift; sourceTree = "<group>"; };
 		B3D6937C6B55416A8668B25B /* DockDoorProPromo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DockDoorProPromo.swift; sourceTree = "<group>"; };
 		F875D112D98340CFAB1BC620 /* DockDoorPro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DockDoorPro.swift; sourceTree = "<group>"; };
 		033B1F63CB464113ADA3868696F486CF /* WindowlessAppPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowlessAppPreview.swift; sourceTree = "<group>"; };
@@ -624,6 +626,7 @@
 			children = (
 				AA11001122334455AA110055 /* DockLockerGeometryTests.swift */,
 				D00D4B366E3CF5338182E065 /* NativeTabGroupingTests.swift */,
+				CB192CF0D1CA47A99768D735DF2CE313 /* FullPreviewLifecycleTests.swift */,
 			);
 			path = DockDoorTests;
 			sourceTree = "<group>";
@@ -1120,6 +1123,7 @@
 			files = (
 				AA11001122334455AA110066 /* DockLockerGeometryTests.swift in Sources */,
 				555110B7F7B99C7BD510DBC7 /* NativeTabGroupingTests.swift in Sources */,
+				E3701318BAB447E8B6BD1E46D4482518 /* FullPreviewLifecycleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

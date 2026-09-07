@@ -985,9 +985,6 @@ class KeybindHelper {
         {
             switcherSessionActive = false
             return (true, { @MainActor in
-                #if DEBUG
-                    DebugPreviewRaceProbe.record("input.escapeDismiss", coordinator: self.previewCoordinator)
-                #endif
                 self.windowSwitchingCoordinator.cancelSwitching(previewCoordinator: self.previewCoordinator)
                 self.previewCoordinator.hideWindow()
                 self.preventSwitcherHideOnRelease = false

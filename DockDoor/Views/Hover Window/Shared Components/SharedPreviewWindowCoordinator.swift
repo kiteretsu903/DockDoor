@@ -176,9 +176,6 @@ final class SharedPreviewWindowCoordinator: NSPanel {
     }
 
     func cancelPendingShow() {
-        #if DEBUG
-            DebugPreviewRaceProbe.record("show.cancelPending", coordinator: self)
-        #endif
         pendingShowWorkItem?.cancel()
         pendingShowWorkItem = nil
     }
@@ -188,10 +185,6 @@ final class SharedPreviewWindowCoordinator: NSPanel {
     }
 
     func hideWindow(cancelPendingShow shouldCancelPendingShow: Bool = true) {
-        #if DEBUG
-            DebugPreviewRaceProbe.record("parent.hide.enter", coordinator: self)
-            defer { DebugPreviewRaceProbe.record("parent.hide.return", coordinator: self) }
-        #endif
         if shouldCancelPendingShow {
             cancelPendingShow()
         }
@@ -495,7 +488,7 @@ final class SharedPreviewWindowCoordinator: NSPanel {
         hideFullPreviewWindow()
     }
 
-    private func isFullPreviewHoverActive(_ hoverID: UUID?) -> Bool {
+    func isFullPreviewHoverActive(_ hoverID: UUID?) -> Bool {
         isVisible && hoverID != nil && activeFullPreviewHoverID == hoverID
     }
 
@@ -533,16 +526,10 @@ final class SharedPreviewWindowCoordinator: NSPanel {
         fullPreviewWindow?.setFrame(flippedIconRect, display: true)
         fullPreviewWindow?.makeKeyAndOrderFront(nil)
         publishTapSnapshot()
-        #if DEBUG
-            DebugPreviewRaceProbe.record("full.shown", coordinator: self, windowID: windowInfo.id)
-        #endif
     }
 
     @MainActor
     func hideFullPreviewWindow() {
-        #if DEBUG
-            DebugPreviewRaceProbe.record("full.hide.enter", coordinator: self)
-        #endif
         activeFullPreviewHoverID = nil
         fullPreviewWindow?.orderOut(nil)
         if let currentFullPreviewContent = fullPreviewWindow?.contentView {
@@ -551,9 +538,6 @@ final class SharedPreviewWindowCoordinator: NSPanel {
         fullPreviewWindow?.contentView = nil
         fullPreviewWindow = nil
         publishTapSnapshot()
-        #if DEBUG
-            DebugPreviewRaceProbe.record("full.hide.return", coordinator: self)
-        #endif
     }
 
     private func centerWindowOnScreen(size: CGSize, screen: NSScreen) -> CGPoint {
@@ -1096,16 +1080,8 @@ final class SharedPreviewWindowCoordinator: NSPanel {
     {
         let renderStartTime = CFAbsoluteTimeGetCurrent()
         DebugLogger.log("PreviewRender", details: "showWindow called: \(windows.count) windows for \(appName)")
-        #if DEBUG
-            let diagnosticRequestID = DebugPreviewRaceProbe.isEnabled ? UUID() : nil
-            DebugPreviewRaceProbe.record(centeredHoverWindowState == .fullWindowPreview ? "full.request" : "parent.request",
-                                         coordinator: self, requestID: diagnosticRequestID, windowID: windows.first?.id)
-        #endif
 
         if centeredHoverWindowState == .fullWindowPreview, !isFullPreviewHoverActive(fullPreviewHoverID) {
-            #if DEBUG
-                DebugPreviewRaceProbe.record("full.requestRejected", coordinator: self, requestID: diagnosticRequestID, hoverID: fullPreviewHoverID)
-            #endif
             return
         }
 
@@ -1115,9 +1091,6 @@ final class SharedPreviewWindowCoordinator: NSPanel {
         pendingShowWorkItem?.cancel()
         let workItem = DispatchWorkItem { [weak self, renderStartTime] in
             guard let self else { return }
-            #if DEBUG
-                DebugPreviewRaceProbe.record("show.workItem", coordinator: self, requestID: diagnosticRequestID)
-            #endif
 
             // Check if mouse entered the preview window and we're trying to show a different app
             if mouseIsWithinPreviewWindow,
@@ -1150,30 +1123,10 @@ final class SharedPreviewWindowCoordinator: NSPanel {
             }
 
             Task { @MainActor [weak self] in
-                #if DEBUG
-                    DebugPreviewRaceProbe.record("show.task", coordinator: self, requestID: diagnosticRequestID)
-                    let isControlledProbe: Bool = if DebugPreviewRaceProbe.isControlled, centeredHoverWindowState == .fullWindowPreview, let self {
-                        await DebugPreviewRaceProbe.pauseBeforeDisplay(coordinator: self, requestID: diagnosticRequestID)
-                    } else {
-                        false
-                    }
-                #endif
                 if centeredHoverWindowState == .fullWindowPreview, self?.isFullPreviewHoverActive(fullPreviewHoverID) != true {
-                    #if DEBUG
-                        DebugPreviewRaceProbe.record("full.displayRejected", coordinator: self, requestID: diagnosticRequestID, hoverID: fullPreviewHoverID)
-                        if isControlledProbe, let self {
-                            await DebugPreviewRaceProbe.inspectAndCleanup(coordinator: self, requestID: diagnosticRequestID)
-                        }
-                    #endif
                     return
                 }
                 self?.performDisplay(appName: appName, windows: windows, mouseLocation: mouseLocation, mouseScreen: mouseScreen, dockItemElement: dockItemElement, centeredHoverWindowState: centeredHoverWindowState, onWindowTap: onWindowTap, bundleIdentifier: bundleIdentifier, dockPositionOverride: dockPositionOverride, initialIndex: initialIndex, dockItemFrameOverride: dockItemFrameOverride, renderStartTime: renderStartTime)
-                #if DEBUG
-                    DebugPreviewRaceProbe.record("show.task.completed", coordinator: self, requestID: diagnosticRequestID)
-                    if isControlledProbe, let self {
-                        await DebugPreviewRaceProbe.inspectAndCleanup(coordinator: self, requestID: diagnosticRequestID)
-                    }
-                #endif
             }
         }
         pendingShowWorkItem = workItem

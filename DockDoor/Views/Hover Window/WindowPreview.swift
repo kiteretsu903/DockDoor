@@ -919,10 +919,6 @@ struct WindowPreview: View, Equatable {
     }
 
     private func cancelFullPreviewHover() {
-        #if DEBUG
-            DebugPreviewRaceProbe.record("hover.cancel", coordinator: SharedPreviewWindowCoordinator.activeInstance,
-                                         windowID: windowInfo.id, hoverID: fullPreviewHoverID)
-        #endif
         fullPreviewTimer?.invalidate()
         fullPreviewTimer = nil
         if let hoverID = fullPreviewHoverID {
@@ -947,16 +943,8 @@ struct WindowPreview: View, Equatable {
                 guard let coordinator = SharedPreviewWindowCoordinator.activeInstance,
                       let hoverID = coordinator.beginFullPreviewHover() else { return }
                 fullPreviewHoverID = hoverID
-                #if DEBUG
-                    DebugPreviewRaceProbe.record("hover.armed", coordinator: SharedPreviewWindowCoordinator.activeInstance,
-                                                 windowID: windowInfo.id, hoverID: hoverID)
-                #endif
                 let showFullPreview = {
                     guard fullPreviewHoverID == hoverID else { return }
-                    #if DEBUG
-                        DebugPreviewRaceProbe.record("hover.timerAccepted", coordinator: SharedPreviewWindowCoordinator.activeInstance,
-                                                     windowID: windowInfo.id, hoverID: hoverID)
-                    #endif
                     coordinator.showWindow(
                         appName: windowInfo.app.localizedName ?? "Unknown",
                         windows: [windowInfo],
