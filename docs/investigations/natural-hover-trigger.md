@@ -62,7 +62,7 @@ The final baseline confirmation preserved the original SwiftUI view structure. I
 
 The user authorized the [bounded pointer helper](tools/hover_trial.py). Because the Python process had no input-posting permission, the helper sends its plans to the already-authorized, certificate-signed debug app. The app validates a maximum of 120 steps and 30 seconds per plan, limited to movement, Escape, and waits. Input handling requires `DOCKDOOR_PREVIEW_RACE=observe` and `DOCKDOOR_PREVIEW_INPUT=1`. The input flag is removed from the handoff scheme, so the remaining run is passive. The `--targets` request exports only the test Dock icons, screen geometry, and the app's preview frame to `/tmp/DockDoor-InputTargets.json` while the input flag is enabled.
 
-Xcode Beta built every app revision through the GUI. Debug signing remains pinned to the same Apple Development certificate and bundle ID. Accessibility and screen-capture grants survived rebuilds. Only the signed debug copy is left running; the installed stable copy is stopped. See [the run guide](preview-race-debug-run.md) for the current passive log path.
+Xcode Beta built every app revision through the GUI. Local Debug signing retains the same Apple Development certificate and bundle ID; those personal settings are excluded from the contribution. Accessibility and screen-capture grants survived rebuilds. Only the signed debug copy is left running; the installed stable copy is stopped. See [the run guide](preview-race-debug-run.md) for the current passive log path.
 
 **Local correction verified**
 

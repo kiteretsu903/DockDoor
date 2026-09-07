@@ -8,7 +8,6 @@
   "trace": "fixed-native-hover-2026-09-07.jsonl",
   "sha256": "b707dd5bce8c8a202521791c5d6acab27c4340f8cbd93962182559dcacaab02f",
   "sources": {
-    "DockDoor.xcodeproj/project.pbxproj": "4181fd8fd4f651ba875692017dadbdbc3d19c9294a9ca4ef84c7054e13d83245",
     "DockDoor/Utilities/DebugTestHarness.swift": "29598155d43af7a4390892373e406fe06cf5e324dffda042c15168ae60b008bf",
     "DockDoor/Utilities/KeybindHelper.swift": "7f39a70eff0910015b7df5d51ff7bb2e828b7bea365bc47b3c89287a1ca172bf",
     "DockDoor/Utilities/Window Management/WindowManipulationObservers.swift": "e94100d16448c4666e18bd922e70ca6a713a60fe3b535489864f6c7f7dde1991",
@@ -208,7 +207,7 @@
     }
   ],
   "nativeScreenshots": "Conversation: normal Calculator full-size preview then dismissal; raw event trace confirms both preview panels hidden.",
-  "signingCertificateSHA1": "CE1C653F6BFA542C339BCAF62294580BD63B85D7",
   "accessibilityGranted": true,
-  "screenCaptureGranted": true
+  "screenCaptureGranted": true,
+  "signingNote": "Native validation used one stable local development identity. Personal signing overrides are excluded from the contribution."
 }

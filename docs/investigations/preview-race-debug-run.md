@@ -32,7 +32,7 @@ For the fixed app, expected events are `controlled.pause`, `controlled.resume`, 
 
 **Stable debug signing and permission verification**
 
-The app's Debug configuration is pinned to the existing Apple Development certificate with SHA-1 `CE1C653F6BFA542C339BCAF62294580BD63B85D7`, team `C2W74C8UVK`, and bundle identifier `com.ethanbills.DockDoor.debug`. Keep this certificate and bundle identifier for subsequent local debug builds; do not switch back to ad-hoc signing. Release signing is unchanged.
+The contribution preserves upstream's project signing settings. Native validation used a stable local Apple Development identity with bundle identifier `com.ethanbills.DockDoor.debug`; subsequent local builds should retain that identity and bundle identifier to preserve permissions. Personal signing overrides are maintained only in the local working copy, with a recovery patch under ignored `DockDoor.xcodeproj/xcuserdata/`. They must not be included in the upstream change.
 
 The built app's signature and designated requirement were inspected. Inside PID 1641, LLDB returned `AXIsProcessTrusted() == true` and `CGPreflightScreenCaptureAccess() == true`. After rebuilding with the same certificate, PID 2874 recorded both grants again, without a new grant between those two checked runs. This verifies permission retention for this rebuild; it is not a guarantee against future macOS permission resets or certificate expiry.
 

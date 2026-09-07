@@ -10,7 +10,7 @@ Escape during the thumbnail's 0.3-second hover delay now dismisses the thumbnail
 - General dismissal closes the large panel before checking the thumbnail's visibility. Escape also recognizes a visible large panel independently of the thumbnail.
 - The full-size display branch keeps its valid ownership while replacing the child content. An unavailable target position no longer falls through into rendering a centered thumbnail panel.
 
-Production changes are limited to `WindowPreview.swift`, `SharedPreviewWindowCoordinator.swift`, and `KeybindHelper.swift`. Existing investigation instrumentation remains behind `#if DEBUG`. Debug signing uses the same certificate and bundle ID as the authorized investigation builds; Release signing is unchanged.
+Production changes are limited to `WindowPreview.swift`, `SharedPreviewWindowCoordinator.swift`, and `KeybindHelper.swift`. Existing investigation instrumentation remains behind `#if DEBUG`. The contribution leaves the upstream project file unchanged. Local debug signing retains the same certificate and bundle ID as the authorized investigation builds. Personal signing values are excluded from the published source snapshot and validation summaries.
 
 **Native regression results**
 
